@@ -1,0 +1,69 @@
+<div class="container-fluid">
+    <div class='panel panel-primary'>
+        <div class='panel-heading'>
+            {{title}}
+        </div>
+        <div class='panel-body'>
+            <div class='table-responsive'>
+                <table class='table table-striped'>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Title</th>
+                            <th>Director</th>
+                            <th>Cast</th>
+                            <th>Release Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let movie of movies | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize; index as i">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{movie.title}}</td>
+                            <td>{{movie.director}}</td>
+                            <td>{{movie.cast}}</td>
+                            <td>{{movie.releaseDate}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="movies.length"
+                    [boundaryLinks]="true"></ngb-pagination>
+
+                <select class="custom-select" style="width: auto" [(ngModel)]="pageSize">
+                    <option [ngValue]="2">2 Items per page</option>
+                    <option [ngValue]="4">4 Items per page</option>
+                    <option [ngValue]="6">6 Items per page</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group">
+                <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+                        #d="ngbDatepicker">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-primary" (click)="showStandard()" ngbTooltip="Will disappear in 5s">Standard
+                toast</button>&nbsp;
+            <button class="btn btn-success" (click)="showSuccess()" ngbTooltip="Will disappear in 10s">Success
+                toast</button>&nbsp;
+            <button class="btn btn-danger" (click)="showError()" ngbTooltip="Will disappear in 10s">Error
+                toast</button>&nbsp;
+            <ng-template #customTpl>
+                <i>This is</i> a <u>custome</u> template <b>toast message</b>
+            </ng-template>
+
+            <button class="btn btn-info" (click)="showCustomToast(customTpl)" ngbTooltip="Will disappear in 15s">Custom
+                toast</button>&nbsp;
+
+        </div>
+    </div>
+</div>
